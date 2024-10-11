@@ -105,10 +105,12 @@ class MemberOnlyArticle(Resource):
             }
             return make_response(jsonify(response_body), 401)
         else:
-            article = Article.query.filter_by(id=id, is_member_only=True).first()
+            article = Article.query.filter_by(id=id).first()
             if article:
+                print(f'Found article with id: {id}')
                 return make_response(jsonify(article.to_dict()), 200)
             else:
+                print(f'Article with id: {id} not found')
                 response_body = {
                     "error": "Article not found"
                 }
